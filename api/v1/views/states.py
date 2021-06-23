@@ -8,7 +8,7 @@ from flask import jsonify
 from console import HBNBCommand
 
 
-@app_views.route('/states/', methods=['POST', 'GET'])
+@app_views.route('/states', methods=['POST', 'GET'])
 @app_views.route('/states/<state_id>', methods=['PUT', 'GET', 'DELETE'])
 def state_route(state_id=None):
     """state_route method determines request responses"""
