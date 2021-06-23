@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 app.register_blueprint(app_views, url_prefix='/api/v1')
 HOST = os.getenv("HBNB_API_HOST")
-PORT = os.getenv("HBNB_API_PORT") 
+PORT = os.getenv("HBNB_API_PORT")
 
 
 @app.teardown_appcontext
