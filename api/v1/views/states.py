@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""states module for app_views"""
 from flask import Flask, request, abort
 from models.state import State
 from models import storage
@@ -10,6 +11,7 @@ from console import HBNBCommand
 @app_views.route('/states/', methods=['POST', 'GET'])
 @app_views.route('/states/<state_id>', methods=['PUT', 'GET', 'DELETE'])
 def state_route(state_id=None):
+    """state_route method determines request responses"""
     if request.method == 'GET' and state_id is None:
         states_lst = []
         for item in storage.all(State).values():
