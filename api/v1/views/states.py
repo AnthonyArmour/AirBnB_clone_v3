@@ -23,7 +23,7 @@ def state_route(state_id=None):
         if state_obj is None:
             abort(404, description="Not found")
         return jsonify(state_obj.to_dict())
-    elif request.method == 'POST' and state_id == None:
+    elif request.method == 'POST' and state_id is None:
         request_dict = request.get_json(silent=True)
         if request_dict is None:
             return jsonify({"error": "Not a JSON"}), 400
@@ -36,10 +36,6 @@ def state_route(state_id=None):
                 return jsonify({"error": "Missing name"}), 400
     elif request.method == 'PUT' and state_id is not None:
         request_dict = request.get_json(silent=True)
-        update_dict = {}
-        for k, v in request_dict.items():
-            if k != "id" and k != "updated_at" and k != "created_at":
-                update_dict[k] = v
         if request_dict is None:
             return jsonify({"error": "Not a JSON"}), 400
         else:
