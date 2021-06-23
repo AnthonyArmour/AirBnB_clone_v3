@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """module that contains methods for an API"""
 from models import storage
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, jsonify
 from api.v1.views import app_views
 import os
 
@@ -17,6 +17,12 @@ def tear_down(exception):
     """closes app"""
     if storage:
         storage.close()
+
+
+@app.errorhandler(404)
+def not_found(e):
+    """JSON ERROR message"""
+    return jsonify({"error": "Not found"})
 
 
 if __name__ == "__main__":
