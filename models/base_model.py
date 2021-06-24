@@ -35,7 +35,7 @@ class BaseModel:
                     setattr(self, key, value)
             if self.__class__.__name__ == 'User' and 'password' in kwargs:
                 setattr(self, "password",
-                        hashlib.md5(kwargs['password'].encode()).digest())
+                        hashlib.md5(kwargs['password'].encode()).hexdigest())
             if kwargs.get("created_at", None) and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
             else:
@@ -60,10 +60,10 @@ class BaseModel:
         """updates the attribute 'updated_at' with the current datetime"""
         if self.__class__.__name__ == 'User' and 'password' in self.__dict__:
             test = "test"
-            test = hashlib.md5(test.encode()).digest()
+            test = hashlib.md5(test.encode()).hexdigest()
             if type(self.password) != type(test):
                 setattr(self, "password",
-                        hashlib.md5(self.password.encode().digest()))
+                        hashlib.md5(self.password.encode().hexdigest()))
         self.updated_at = datetime.utcnow()
         models.storage.new(self)
         models.storage.save()
