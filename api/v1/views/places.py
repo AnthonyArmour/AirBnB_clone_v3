@@ -59,7 +59,7 @@ def place_route(place_id=None, city_id=None):
             else:
                 for k, v in request_dict.items():
                     if (k != "id" and
-                        k != "updated_at" and k != "user_id"
+                        k != "updated_at" and k != "user_id" and
                             k != "created_at" and k != "city_id"):
                         HBNBCommand().onecmd('update Place {} {} "{}"'
                                              .format(place_id, k, v))
