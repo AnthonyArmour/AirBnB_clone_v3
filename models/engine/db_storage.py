@@ -69,11 +69,9 @@ class DBStorage:
                             p_am_dict[key] = item
                         key = "result" + str(x)
                         x += 1
-                        new_dict[key] = p_am_dict
+                        new_dict[key] = obj
                     else:
                         key = obj.__class__.__name__ + '.' + obj.id
-                    #else:
-                    #    key = obj.__class__.__name__
                         new_dict[key] = obj
         return (new_dict)
 
