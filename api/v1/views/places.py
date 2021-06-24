@@ -29,7 +29,7 @@ def place_route(place_id=None, city_id=None):
             if obj.city_id == city_id:
                 places_lst.append(obj.to_dict())
         return jsonify(places_lst)
-    elif request.method == 'POST' and place_id is not None:
+    elif request.method == 'POST' and city_id is not None:
         city_obj = storage.get(City, city_id)
         if city_obj is None:
             abort(404)
@@ -45,9 +45,9 @@ def place_route(place_id=None, city_id=None):
                 abort(404)
             else:
                 request_dict["city_id"] = city_id
-                city_obj = City(**request_dict)
-                city_obj.save()
-                return jsonify(city_obj.to_dict()), 201
+                place_obj = Place(**request_dict)
+                place_obj.save()
+                return jsonify(place_obj.to_dict()), 201
     elif request.method == 'PUT' and place_id is not None:
         request_dict = request.get_json(silent=True)
         if request_dict is None:
