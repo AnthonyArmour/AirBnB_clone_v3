@@ -14,13 +14,15 @@ from console import HBNBCommand
                  strict_slashes=False)
 @app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'],
                  strict_slashes=False)
+# @app_views.route('/amenities/', methods=['POST', 'GET'],
+#                 strict_slashes=False)
 def amenity_route(amenity_id=None):
     """amenity_route method determines request responses"""
     if request.method == 'GET' and amenity_id is None:
         amenity_lst = storage.all(Amenity).values()
         new_amenity_list = []
         for obj in amenity_lst:
-            new_amenity_lst.append(obj.to_dict())
+            new_amenity_list.append(obj.to_dict())
         return jsonify(new_amenity_list)
     elif request.method == 'GET' and amenity_id is not None:
         amenity_obj = storage.get(Amenity, amenity_id)
