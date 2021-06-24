@@ -3,6 +3,7 @@
 Contains class BaseModel
 """
 
+import hashlib
 from datetime import datetime
 import models
 from os import getenv
@@ -32,6 +33,8 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
+            if self.__class__.__name__ == 'User' and 'password' in kwargs:
+                setattr(self, "password", hashlib.md5(kwargs['password'])
             if kwargs.get("created_at", None) and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
             else:
@@ -54,6 +57,9 @@ class BaseModel:
 
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""
+        if self.__class__.__name__ == 'User' and 'password' in self.__dict__:
+            if type(self.password) != type(hashlib.md5("test")):
+                setattr(self, "password", hashlib.md5(self.password))
         self.updated_at = datetime.utcnow()
         models.storage.new(self)
         models.storage.save()
@@ -65,6 +71,9 @@ class BaseModel:
             new_dict["created_at"] = new_dict["created_at"].strftime(time)
         if "updated_at" in new_dict:
             new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
+        if "password" in new_dict and getenv("HBNB_TYPE_STORAGE") == "db":
+            if new_dict.pop('password', None) != None:
+                del new_dict['password']
         new_dict["__class__"] = self.__class__.__name__
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
