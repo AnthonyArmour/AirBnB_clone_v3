@@ -54,10 +54,10 @@ def db_route(place_id=None, amenity_id=None):
             abort(404)
         for obj in storage.all(place_amenity).values():
             if obj[0] == place_id and obj[1] == amenity_id:
-                return jsonify(storage.get(Amenity, amenity_id).to_dict), 200
+                return jsonify(storage.get(Amenity, amenity_id).to_dict()), 200
         place_obj.amenities.append(amenity_obj)
         storage.save()
-        return jsonify(storage.get(Amenity, amenity_id).to_dict), 200
+        return jsonify(storage.get(Amenity, amenity_id).to_dict()), 200
 
 
 def fs_route(place_id, amenity_id):
@@ -82,14 +82,14 @@ def fs_route(place_id, amenity_id):
             return jsonify({}), 200
         abort(404)
     elif (request.method == 'POST' and place_id is not None and
-             amenity_id is not None):
+            amenity_id is not None):
         place_obj = storage.get(Place, place_id)
         amenity_obj = storage.get(Amenity, amenity_id)
         if place_obj is None or amenity_obj is None:
             abort(404)
         for id in place_obj.amenity_ids:
             if id == amenity_id:
-                return jsonify(storage.get(Amenity, amenity_id).to_dict), 200
+                return jsonify(storage.get(Amenity, amenity_id).to_dict()), 200
         place_obj.amenity_ids.append(amenity_id)
         storage.save()
-        return jsonify(storage.get(Amenity, amenity_id).to_dict), 200
+        return jsonify(storage.get(Amenity, amenity_id).to_dict()), 200
