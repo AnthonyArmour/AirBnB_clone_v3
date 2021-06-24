@@ -40,7 +40,7 @@ def amenity_route(amenity_id=None):
                 return jsonify(amenity_obj.to_dict()), 201
             else:
                 return jsonify({"error": "Missing name"}), 400
-    elif request.method == 'PUT' and city_id is not None:
+    elif request.method == 'PUT' and amenity_id is not None:
         request_dict = request.get_json(silent=True)
         if request_dict is None:
             return jsonify({"error": "Not a JSON"}), 400
