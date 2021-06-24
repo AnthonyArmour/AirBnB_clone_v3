@@ -7,7 +7,7 @@ import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models.city import City
-from models.place import Place
+from models.place import Place, place_amenity
 from models.review import Review
 from models.state import State
 from models.user import User
@@ -16,7 +16,7 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Amenity": Amenity, "City": City,
+classes = {"Amenity": Amenity, "City": City, "place_amenity": place_amenity,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
 
@@ -57,12 +57,24 @@ class DBStorage:
     def all(self, cls=None):
         """query on the current database session"""
         new_dict = {}
+        p_am_dict = {}
+        x = 0
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    new_dict[key] = obj
+                    if clss == "place_amenity":
+                        for item in obj:
+                            key = item.__class__.__name__
+                            p_am_dict[key] = item
+                        key = "result" + str(x)
+                        x += 1
+                        new_dict[key] = p_am_dict
+                    else:
+                        key = obj.__class__.__name__ + '.' + obj.id
+                    #else:
+                    #    key = obj.__class__.__name__
+                        new_dict[key] = obj
         return (new_dict)
 
     def new(self, obj):
