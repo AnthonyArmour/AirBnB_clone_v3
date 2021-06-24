@@ -18,7 +18,7 @@ from console import HBNBCommand
 def user_route(user_id=None):
     """user_route method determines request responses"""
     if request.method == 'GET' and user_id is None:
-        user_lst = storage.all(Amenity).values()
+        user_lst = storage.all(User).values()
         new_user_list = []
         for obj in user_lst:
             new_user_list.append(obj.to_dict())
@@ -52,7 +52,7 @@ def user_route(user_id=None):
             else:
                 for k, v in request_dict.items():
                     if (k != "id" and k != "updated_at" and
-                        k != "created_at" and k != "email"):
+                            k != "created_at" and k != "email"):
                         HBNBCommand().onecmd('update User {} {} "{}"'
                                              .format(user_id, k, v))
                 storage.save()
