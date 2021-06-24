@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-"""states module for app_views"""
+"""user module for app_views"""
 from flask import Flask, request, abort
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
-from models.users import User
+from models.user import User
 from models import storage
 from api.v1.views import app_views
 from flask import jsonify
@@ -16,7 +16,7 @@ from console import HBNBCommand
 @app_views.route('/users/<user_id>', methods=['GET', 'DELETE', 'PUT'],
                  strict_slashes=False)
 def user_route(user_id=None):
-    """amenity_route method determines request responses"""
+    """user_route method determines request responses"""
     if request.method == 'GET' and user_id is None:
         user_lst = storage.all(Amenity).values()
         new_user_list = []
