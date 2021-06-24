@@ -34,7 +34,8 @@ class BaseModel:
                 if key != "__class__":
                     setattr(self, key, value)
             if self.__class__.__name__ == 'User' and 'password' in kwargs:
-                setattr(self, "password", hashlib.md5(kwargs['password'])
+                setattr(self, "password",
+                        hashlib.md5(kwargs['password'].encode()).digest())
             if kwargs.get("created_at", None) and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
             else:
@@ -58,8 +59,11 @@ class BaseModel:
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""
         if self.__class__.__name__ == 'User' and 'password' in self.__dict__:
-            if type(self.password) != type(hashlib.md5("test")):
-                setattr(self, "password", hashlib.md5(self.password))
+            test = "test"
+            test = hashlib.md5(test.encode()).digest()
+            if type(self.password) != type(test):
+                setattr(self, "password",
+                        hashlib.md5(self.password.encode().digest()))
         self.updated_at = datetime.utcnow()
         models.storage.new(self)
         models.storage.save()
@@ -72,7 +76,7 @@ class BaseModel:
         if "updated_at" in new_dict:
             new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
         if "password" in new_dict and getenv("HBNB_TYPE_STORAGE") == "db":
-            if new_dict.pop('password', None) != None:
+            if new_dict.pop('password', None) is not None:
                 del new_dict['password']
         new_dict["__class__"] = self.__class__.__name__
         if "_sa_instance_state" in new_dict:
