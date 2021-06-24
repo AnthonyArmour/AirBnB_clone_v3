@@ -74,6 +74,7 @@ class TestDBStorage(unittest.TestCase):
     def test_get(self):
         """tests get method"""
         state = State(name="Cali")
+        state.save()
         self.assertEquals(models.storage.get(State, state.id), state)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
