@@ -22,7 +22,7 @@ The console is the first segment of the AirBnB project at Holberton School that 
 This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3)
 
 ## Installation
-* Clone this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone.git"`
+* Clone this repository: `git clone "https://github.com/AnthonyArmour/AirBnB_clone_v3.git"`
 * Access AirBnb directory: `cd AirBnB_clone`
 * Run hbnb(interactively): `./console` and enter command
 * Run hbnb(non-interactively): `echo "<command>" | ./console.py`
@@ -58,13 +58,13 @@ Classes inherited from Base Model:
 [app.py](/api/v1/app.py)- Instantiates our blueprint, CORS, and HOST/PORT data.
 
 #### `api/v1/views` directory contains all our view files:
-[amenities.py](/api/v1/views/amenities.py)- Sets up default routes and actions for our Amenity view.
-[cities.py](/api/v1/views/cities.py)- Sets up API routes and actions for our Cities view.
-[places.py](/api/v1/views/places.py)- Sets up API routes and actions for our Places view.
-[states.py](/api/v1/views/states.py)- Sets up API routes and actions for our Cities view.
-[users.py](/api/v1/views/users.py)- Sets up API routes and actions for our Users view.
-[places_amenities.py](/api/v1/views/places_amenities.py)- Sets up API routes and actions for our Places Amenities view.
-[places_reviews.py](/api/v1/views/places_reviews.py)- Sets up API routes and actions for our Places Reviews view.
+* [amenities.py](/api/v1/views/amenities.py)- Sets up default routes and actions for our Amenity view.
+* [cities.py](/api/v1/views/cities.py)- Sets up API routes and actions for our Cities view.
+* [places.py](/api/v1/views/places.py)- Sets up API routes and actions for our Places view.
+* [states.py](/api/v1/views/states.py)- Sets up API routes and actions for our Cities view.
+* [users.py](/api/v1/views/users.py)- Sets up API routes and actions for our Users view.
+* [places_amenities.py](/api/v1/views/places_amenities.py)- Sets up API routes and actions for our Places Amenities view.
+* [places_reviews.py](/api/v1/views/places_reviews.py)- Sets up API routes and actions for our Places Reviews view.
 
 #### `/models/engine` directory contains File Storage class that handles JASON serialization and deserialization :
 [file_storage.py](/models/engine/file_storage.py) - serializes instances to a JSON file & deserializes back to instances
