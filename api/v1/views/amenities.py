@@ -14,8 +14,6 @@ from console import HBNBCommand
                  strict_slashes=False)
 @app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'],
                  strict_slashes=False)
-# @app_views.route('/amenities/', methods=['POST', 'GET'],
-#                 strict_slashes=False)
 def amenity_route(amenity_id=None):
     """amenity_route method determines request responses"""
     if request.method == 'GET' and amenity_id is None:
