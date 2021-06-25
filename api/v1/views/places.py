@@ -16,11 +16,15 @@ from console import HBNBCommand
                  strict_slashes=False)
 def place_route(place_id=None, city_id=None):
     """place_route method determines request responses"""
+    # retrieves a Place ojb using GET
+    # is place_id is not linked to obj raise 404
     if request.method == 'GET' and place_id is not None:
         place_obj = storage.get(Place, place_id)
         if place_obj is None:
             abort(404)
         return jsonify(place_obj.to_dict())
+    # retrieves a list of all Place objs of a City
+    # if city_id is not linked to obj raise 404
     elif request.method == 'GET' and city_id is not None:
         city_obj = storage.get(City, city_id)
         if city_obj is None:
@@ -30,6 +34,12 @@ def place_route(place_id=None, city_id=None):
             if obj.city_id == city_id:
                 places_lst.append(obj.to_dict())
         return jsonify(places_lst)
+    # creates a new Place obj
+    # on success returns code 201
+    # if city_id is not linked to obj raise 404
+    # if dict doesn't contain user_id raise 400
+    # if user_id is not linked to User obj raise 404
+    # if dict doesn't contain name raise 400
     elif request.method == 'POST' and city_id is not None:
         city_obj = storage.get(City, city_id)
         if city_obj is None:
@@ -66,6 +76,9 @@ def place_route(place_id=None, city_id=None):
                                              .format(place_id, k, v))
                 storage.save()
                 return jsonify(storage.get(Place, place_id).to_dict()), 200
+    # deletes a Place obj using DELETE
+    # if place_id is not linked to any Place obj raise 404
+    # returns empty dict with code 200
     elif request.method == 'DELETE' and place_id is not None:
         place_obj = storage.get(Place, place_id)
         if place_obj is None:
