@@ -54,6 +54,18 @@ Classes inherited from Base Model:
 * [state.py](/models/state.py)
 * [user.py](/models/user.py)
 
+#### `api/v1` directory contains app.py file:
+[app.py](/api/v1/app.py)- Instantiates our blueprint, CORS, and HOST/PORT data.
+
+#### `api/v1/views` directory contains all our view files:
+[amenities.py](/api/v1/views/amenities.py)- Sets up default routes and actions for our Amenity view.
+[cities.py](/api/v1/views/cities.py)- Sets up API routes and actions for our Cities view.
+[places.py](/api/v1/views/places.py)- Sets up API routes and actions for our Places view.
+[states.py](/api/v1/views/states.py)- Sets up API routes and actions for our Cities view.
+[users.py](/api/v1/views/users.py)- Sets up API routes and actions for our Users view.
+[places_amenities.py](/api/v1/views/places_amenities.py)- Sets up API routes and actions for our Places Amenities view.
+[places_reviews.py](/api/v1/views/places_reviews.py)- Sets up API routes and actions for our Places Reviews view.
+
 #### `/models/engine` directory contains File Storage class that handles JASON serialization and deserialization :
 [file_storage.py](/models/engine/file_storage.py) - serializes instances to a JSON file & deserializes back to instances
 * `def all(self)` - returns the dictionary __objects
@@ -156,7 +168,9 @@ No known bugs at this time.
 ## Authors
 Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
+Lonzo Rust - [Github](https://github.com/lonzor)
+Anthony Armour - [Github](https://github.com/AnthonyArmour)
 
 Second part of Airbnb: Joann Vuong
 ## License
-Public Domain. No copy write protection. 
+Public Domain. No copy write protection.
