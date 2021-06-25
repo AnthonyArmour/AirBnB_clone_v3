@@ -9,6 +9,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.register_blueprint(app_views, url_prefix='/api/v1')
+# used this syntax for CORS due to given parameters
 cors = CORS(app, resources={"/*": {"origins": "0.0.0.0"}})
 HOST = os.getenv("HBNB_API_HOST")
 PORT = os.getenv("HBNB_API_PORT")
