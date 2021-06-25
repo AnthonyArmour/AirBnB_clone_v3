@@ -16,17 +16,24 @@ from console import HBNBCommand
                  strict_slashes=False)
 def amenity_route(amenity_id=None):
     """amenity_route method determines request responses"""
+    # retrieves list of all Amenity objects using GET
     if request.method == 'GET' and amenity_id is None:
         amenity_lst = storage.all(Amenity).values()
         new_amenity_list = []
         for obj in amenity_lst:
             new_amenity_list.append(obj.to_dict())
         return jsonify(new_amenity_list)
+    # retrieves Amenity obj using GET
+    # if amenit_id is not linked to obj then raise 404
     elif request.method == 'GET' and amenity_id is not None:
         amenity_obj = storage.get(Amenity, amenity_id)
         if amenity_obj is None:
             abort(404, description="Not found")
         return jsonify(amenity_obj.to_dict())
+    # creates a new Amenity using POST
+    # raises 400 if request body not a valid JSON
+    # raises 400 if dict does not contain a name
+    # on success returns 201 and new Amenity
     elif request.method == 'POST' and amenity_id is None:
         request_dict = request.get_json(silent=True)
         if request_dict is None:
@@ -38,6 +45,10 @@ def amenity_route(amenity_id=None):
                 return jsonify(amenity_obj.to_dict()), 201
             else:
                 return jsonify({"error": "Missing name"}), 400
+    # updates an Amenity obj using POST
+    # if HTTP request body not valid JSON raise 400
+    # if amenity_id is not linked to obj raise 404
+    # Returns changed obj with code 200
     elif request.method == 'PUT' and amenity_id is not None:
         request_dict = request.get_json(silent=True)
         if request_dict is None:
@@ -53,6 +64,9 @@ def amenity_route(amenity_id=None):
                                              .format(amenity_id, k, v))
                 storage.save()
                 return jsonify(storage.get(Amenity, amenity_id).to_dict()), 200
+    # deletes and Amenity obj using DELETE
+    # raises 404 if amenity_id not linked to obj
+    # on success returns empty dict with code 200
     elif request.method == 'DELETE' and amenity_id is not None:
         amenity_obj = storage.get(Amenity, amenity_id)
         if amenity_obj is None:
